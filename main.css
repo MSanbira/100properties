@@ -1,0 +1,130 @@
+@layer reset, main;
+
+@layer main {
+    :root {
+        --bg-color: #fff;
+        --bg-grey-t-1: #0001;
+        --bg-grey-t-2: #0002;
+        --text-color: #000;
+        --btn-color: #e0e0e0;
+        --btn-color-h: #bdbdbd;
+    }
+
+    html {
+        font-size: 1vmin;
+    }
+
+    body {
+        font-family: "Sora", sans-serif;
+        background: var(--bg-color);
+        color: var(--text-color);
+    }
+
+    .bg {
+        position: fixed;
+        inset: 0;
+        font-size: max(2.7rem, 16px);
+        padding: .5em;
+        overflow: hidden;
+        color: var(--bg-grey-t-1);
+        user-select: none;
+        cursor: default;
+        line-height: 1.5;
+        text-align: justify;
+    }
+
+    .bg span {
+        animation: 1s fade-in;
+    }
+
+    .bg span:nth-child(odd) {
+        color: var(--bg-grey-t-2);
+    }
+
+    .property-and-actions {
+        --gap: max(2rem, 24px);
+        position: fixed;
+        inset: 0;
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        place-items: center;
+        padding: 24px;
+        gap: var(--gap);
+    }
+
+    .property {
+        font-size: max(10rem, 40px);
+        text-align: center;
+        align-self: end;
+        transition: 1s;
+    }
+
+    .property.is-done {
+        opacity: 0;
+    }
+
+    .property-and-actions:not(:is(.rolled, .rolling)) .property {
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .actions {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--gap);
+        align-self: start;
+        position: relative;
+    }
+
+    button,
+    .btn {
+        font-family: inherit;
+        font-size: max(2rem, 12px);
+        padding: .5em 1em;
+        background: var(--btn-color);
+        transition: 500ms;
+        text-transform: uppercase;
+    }
+
+    :is(button, .btn):hover {
+        background: var(--btn-color-h);
+    }
+
+
+    :is(.property-and-actions:not(.rolled), .rolling) .actions:after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 10;
+    }
+
+    .rolling :is(button, .btn) {
+        color: var(--btn-color-h);
+    }
+
+    .property-and-actions:not(.rolled) :is(button, .btn) {
+        opacity: 0;
+    }
+
+    @keyframes fade-in {
+        0% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 1
+        }
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --bg-color: #263238;
+            --bg-grey-t-1: #fff2;
+            --bg-grey-t-2: #fff3;
+            --text-color: #fff;
+            --btn-color: #455a64;
+            --btn-color-h: #607d8b;
+        }
+    }
+}
